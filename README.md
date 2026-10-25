@@ -18,21 +18,18 @@
 
 ## 📌 Overview
 
-Offline RabbitMQ configuration auditor
+ORabbitX is an offline configuration auditor for RabbitMQ. It parses rabbitmq.conf, Erlang-style rabbitmq.config/advanced.config, enabled_plugins and definitions.json exports to flag insecure defaults, listener and TLS issues, and weak credentials. Secrets are masked and findings map to CWE and MITRE ATT&CK.
 
 ---
 
 ## ✨ Features
 
-- rabbitmq.conf (sysctl) + conf.d merge parser
-- Tolerant Erlang-term parser for rabbitmq.config / advanced.config / enabled_plugins (stdlib only)
-- Guest / loopback / default_user / anonymous rules
-- Listener, TLS, management, MQTT/STOMP checks
-- definitions.json — cleartext, hash crack, shovel URIs
-- Erlang cookie & file-permission audit
-- Offline --root discovery, CWE + MITRE map
-- Export TXT / MD / JSON / CSV / SARIF 2.1.0
-- Self-test --demo, CI gates --fail-on / --min-severity
+- rabbitmq.conf (sysctl) and conf.d merge parser plus a tolerant Erlang-term parser
+- Guest/loopback/default-user/anonymous access rules
+- Listener, TLS, management and MQTT/STOMP checks
+- definitions.json analysis with cleartext detection, hash guessing and shovel URI review
+- Erlang cookie and file-permission auditing with offline --root discovery
+- TXT/MD/JSON/CSV/SARIF export, self-test and CI gates
 
 ---
 
@@ -46,7 +43,10 @@ Offline RabbitMQ configuration auditor
 ## 🚀 Usage
 
 ```bash
-./ORabbitX
+./ORabbitX -c /etc/rabbitmq/rabbitmq.conf
+./ORabbitX -d definitions.json --sarif -o report.sarif
+./ORabbitX --scan --root /mnt/collected --fail-on high
+./ORabbitX --help
 ```
 
 ---
